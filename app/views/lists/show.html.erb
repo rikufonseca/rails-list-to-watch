@@ -1,0 +1,21 @@
+<div> <%= link_to "back to all the list", root_path %></div>
+<h1> <%= @list.name  %> </h1>
+<div> <% @list.bookmarks.each do |bookmark| %> </div>
+   <h3> <%= bookmark.movie.title %> </h3>
+   <div> <%= bookmark.movie.rating %> </div>
+   <div> <%= image_tag("https://image.tmdb.org/t/p/original#{bookmark.movie.poster_url}", size: "300") %> </div>
+   <h5> What is the movie about: </h5>
+   <div> <%= bookmark.movie.overview %> </div>
+   <h5> comment: </h5>
+   <div> <%= bookmark.comment %></div>
+   <div> <%= link_to "delete this bookmark", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "are you sure?"}  %></div>
+<div> <% end %> </div>
+<br>
+<br>
+<h3> ADD A NEW BOOKMARK: </h3>
+<%= simple_form_for([@list, @bookmark]) do |f| %>
+<div> Select a movie </div>
+  <%= f.association :movie %>
+  <%= f.input :comment, placeholder: "enter a comment" %>
+  <div><%= f.button :submit, "Save this bookmark", class: "btn btn-primary" %></div>
+<% end %>

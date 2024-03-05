@@ -1,0 +1,8 @@
+<%= simple_form_for @list do |f| %>
+  <%= f.input :name %>
+  <%= f.simple_fields_for @bookmark do |bookmark| %>
+    <%= bookmark.collection_select :movie_id, Movie.all, :id, :title, {prompt: "Select a movie"} %>
+    <%= bookmark.input :comment, placeholder: "enter a comment" %>
+  <% end %>
+  <div><%= f.button :submit, "Save this list", class: "btn btn-primary" %></div>
+<% end %>
